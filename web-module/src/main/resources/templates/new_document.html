@@ -1,0 +1,52 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Create Document</title>
+        <style>
+            label, input { display:block; }
+            input.text { margin-bottom:12px; width:95%; padding: .4em; }
+            fieldset { padding:0; border:0; margin-top:25px; }
+            h1 { font-size: 1.2em; margin: .6em 0; }
+            div#users-contain table { margin: 1em 0; border-collapse: collapse;  }
+            div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+            .validateTips { border: 1px solid transparent; padding: 0.3em; }
+        </style>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $( function() {
+                $( "#dialog" ).dialog();
+            } );
+        </script>
+    </head>
+    <body>
+
+    <div id="dialog" title="Create Document">
+        <form method="POST" th:object="${document}" th:action="@{/create}">
+
+            <p class="validateTips">All form fields are required.</p>
+
+            <fieldset>
+                <label>Document Name</label>
+                <label style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</label>
+                <input th:field="*{name}" type="text" name="name" id="name" placeholder="required" class="text ui-widget-content ui-corner-all">
+
+                <label>Description</label>
+                <label style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Name Error</label>
+                <input th:field="*{description}" type="text" name="description" id="description" placeholder="required" class="text ui-widget-content ui-corner-all">
+
+            </fieldset>
+
+            <br>
+            <input class="ui-button ui-widget ui-corner-all" type="submit" value="Create"/>
+            <br>
+        </form>
+
+    </div>
+
+    </body>
+</html>

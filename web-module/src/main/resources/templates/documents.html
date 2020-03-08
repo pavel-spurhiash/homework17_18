@@ -1,0 +1,52 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Documents</title>
+        <style>
+            label, input { display:block; }
+            input.text { margin-bottom:12px; width:95%; padding: .4em; }
+            fieldset { padding:0; border:0; margin-top:25px; }
+            div#users-contain {  margin: 20px 0; }
+            div#users-contain table { margin: 1em 0; border-collapse: collapse;  }
+            div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+        </style>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </head>
+
+    <body>
+        <div id="users-contain" class="ui-widget">
+            <h1>Documents:</h1>
+            <table id="users" class="ui-widget ui-widget-content">
+                <thead>
+                <tr class="ui-widget-header ">
+                    <th>ID</th>
+                    <th>Document Code</th>
+                    <th>File Name</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="document : ${documents}">
+                    <td th:text="${document.id}">n/a</td>
+                    <td th:text="${document.uniqueNumber}">n/a</td>
+                    <td><a th:href="@{document(id=${document.id})}" th:text="${document.name}">n/a</a></td>
+                    <td><form method="POST" th:action="@{/delete(id=${document.id})}">
+                        <input type="hidden" name="id" th:value="${document.id}"/>
+                        <input type="submit" value="Delete" class="ui-button ui-widget ui-corner-all"/>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <a th:href="@{/create}" class="ui-button ui-widget ui-corner-all">Create Document</a>
+
+    </body>
+
+</html>
